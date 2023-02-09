@@ -1,0 +1,151 @@
+import React, { useMemo } from "react";
+import {
+  useTable,
+  useGlobalFilter,
+  useFilters,
+  usePagination,
+} from "react-table";
+import classes from "./Table.module.css";
+import GlobalFilter from "./GlobalFilter";
+import ColumnFilter from "./ColumnFilter";
+import Pagination from "./Pagination";
+import { CSVLink } from "react-csv";
+
+function Table({ data1, column, numberOfRows }) {
+  const columns = useMemo(() => column, []);
+  const data = useMemo(() => data1, []);
+
+  const defaultColumn = useMemo(() => {
+    return {
+      Filter: ColumnFilter,
+    };
+  }, []);
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    // rows,
+    page,
+    nextPage,
+    previousPage,
+    canNextPage,
+    canPreviousPage,
+    pageOptions,
+    gotoPage,
+    pageCount,
+    prepareRow,
+    state,
+    setGlobalFilter,
+  } = useTable(
+    {
+      columns: columns,
+      data: data,
+      initialState: { pageSize: numberOfRows ? numberOfRows : 10 },
+      // initialState: { pageIndex: 0 },
+      defaultColumn,
+    },
+
+    useFilters,
+    useGlobalFilter,
+    usePagination
+  );
+
+  const { globalFilter, pageIndex, pageSize } = state;
+
+  return (
+    <>
+      <div
+        className="d-flex justify-content-between align-items-center"
+        style={{ marginRight: "10px" }}
+      >
+        <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
+        <CSVLink data={data1}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="48"
+            width="48"
+            style={{ stroke: "#fff" }}
+          >
+            <path d="M11 40q-1.2 0-2.1-.9Q8 38.2 8 37v-7.15h3V37h26v-7.15h3V37q0 1.2-.9 2.1-.9.9-2.1.9Zm13-7.65-9.65-9.65 2.15-2.15 6 6V8h3v18.55l6-6 2.15 2.15Z" />
+          </svg>
+        </CSVLink>
+      </div>
+      <table className={classes.table} {...getTableProps()}>
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps()}>
+                  {column.render("Header")}
+                  <div>{column.canFilter ? column.render("Filter") : null}</div>
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {page.map((row) => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map((cell) => {
+                  return (
+                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <div className="mt-4">
+        <Pagination
+          totalData={pageOptions.length}
+          paginate={gotoPage}
+          nextPage={nextPage}
+          prevPage={previousPage}
+          disableNext={!canNextPage}
+          disablePrev={!canPreviousPage}
+        />
+      </div>
+    </>
+  );
+}
+
+export default Table;
+
+{
+  /* <span>
+Go to page:{" "}
+<input
+  type="number"
+  defaultValue={pageIndex + 1}
+  onChange={(e) => {
+    const pageNumber = e.target.value
+      ? Number(e.target.value) - 1
+      : 0;
+    gotoPage(pageNumber);
+  }}
+  style={{ width: "50px" }}
+/>
+</span>
+<button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+{"<<"}
+</button>
+<button onClick={() => previousPage()} disabled={!canPreviousPage}>
+Previous &larr;
+</button>
+<span>
+Page{" "}
+<strong>
+  {pageIndex + 1} of {pageOptions.length}
+</strong>{" "}
+</span>
+<button onClick={() => nextPage()} disabled={!canNextPage}>
+Next &rarr;
+</button>
+<button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+{">>"}
+</button> */
+}

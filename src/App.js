@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Table from "./components/Table";
+import mock_data from "./components/mock-data.json";
+import { useState } from "react";
 
 function App() {
+  const [data, setData] = useState(mock_data);
+
+  const COLUMNS = [
+    {
+      Header: "Account",
+      accessor: "account",
+      // disableFilters: true,
+    },
+    { Header: "Description", accessor: "event" },
+    { Header: "User", accessor: "entered_by" },
+    { Header: "Date", accessor: "event_date" },
+  ];
+
+  // Enter url below to fetch data
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await fetch("");
+  //     setData(response.data)
+  //   };
+
+  //   fetchData();
+  // }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Table data1={data} column={COLUMNS} numberOfRows={5} />;
+    </>
   );
 }
 
