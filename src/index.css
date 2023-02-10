@@ -11,3 +11,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.pagination {
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.muted {
+  pointer-events: none;
+}
+
+.page-item a,
+.page-link:hover {
+  color: #04aa6d;
+}
+
+.page-item.active .page-link {
+  border-color: #04aa6d;
+  background-color: #04aa6d;
+}
+
+.page-link:focus {
+  box-shadow: 0 0 0 0.2rem rgba(52, 58, 64, 0.25);
+}

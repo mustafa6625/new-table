@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useRef } from "react";
 import {
   useTable,
   useGlobalFilter,
@@ -8,8 +8,9 @@ import {
 import classes from "./Table.module.css";
 import GlobalFilter from "./GlobalFilter";
 import ColumnFilter from "./ColumnFilter";
-import Pagination from "./Pagination";
 import { CSVLink } from "react-csv";
+
+import PaginationComponent from "./PaginationComponent";
 
 function Table({ data1, column, numberOfRows }) {
   const columns = useMemo(() => column, []);
@@ -27,10 +28,10 @@ function Table({ data1, column, numberOfRows }) {
     headerGroups,
     // rows,
     page,
-    nextPage,
-    previousPage,
-    canNextPage,
-    canPreviousPage,
+    // nextPage,
+    // previousPage,
+    // canNextPage,
+    // canPreviousPage,
     pageOptions,
     gotoPage,
     pageCount,
@@ -50,6 +51,7 @@ function Table({ data1, column, numberOfRows }) {
     useGlobalFilter,
     usePagination
   );
+  console.log(useFilters);
 
   const { globalFilter, pageIndex, pageSize } = state;
 
@@ -77,6 +79,7 @@ function Table({ data1, column, numberOfRows }) {
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
                 <th {...column.getHeaderProps()}>
+                  {console.log(column.render("Header"))}
                   {column.render("Header")}
                   <div>{column.canFilter ? column.render("Filter") : null}</div>
                 </th>
@@ -91,7 +94,10 @@ function Table({ data1, column, numberOfRows }) {
               <tr {...row.getRowProps()}>
                 {row.cells.map((cell) => {
                   return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    <td {...cell.getCellProps()}>
+                      {console.log(cell.render("Cell"))}
+                      {cell.render("Cell")}
+                    </td>
                   );
                 })}
               </tr>
@@ -99,14 +105,18 @@ function Table({ data1, column, numberOfRows }) {
           })}
         </tbody>
       </table>
-      <div className="mt-4">
-        <Pagination
-          totalData={pageOptions.length}
-          paginate={gotoPage}
-          nextPage={nextPage}
-          prevPage={previousPage}
-          disableNext={!canNextPage}
-          disablePrev={!canPreviousPage}
+      <div className="mt-4 d-flex flex-column justify-content-center align-content-center">
+        <p style={{ margin: "6px auto" }}>
+          Page{" "}
+          <strong>
+            {pageIndex + 1} of {pageOptions.length}
+          </strong>{" "}
+        </p>
+        <PaginationComponent
+          pageOptions={pageOptions}
+          pagesCount={pageCount}
+          currentPage={pageIndex + 1}
+          setCurrentPage={gotoPage}
         />
       </div>
     </>
