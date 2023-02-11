@@ -12,7 +12,7 @@ import { CSVLink } from "react-csv";
 
 import PaginationComponent from "./PaginationComponent";
 
-function Table({ data1, column, numberOfRows }) {
+function Table({ data1, excel2, column, numberOfRows }) {
   const columns = useMemo(() => column, []);
   const data = useMemo(() => data1, []);
 
@@ -51,7 +51,6 @@ function Table({ data1, column, numberOfRows }) {
     useGlobalFilter,
     usePagination
   );
-  console.log(useFilters);
 
   const { globalFilter, pageIndex, pageSize } = state;
 
@@ -62,7 +61,7 @@ function Table({ data1, column, numberOfRows }) {
         style={{ marginRight: "10px" }}
       >
         <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-        <CSVLink data={data1}>
+        <CSVLink data={excel2}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="48"
@@ -79,7 +78,6 @@ function Table({ data1, column, numberOfRows }) {
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
                 <th {...column.getHeaderProps()}>
-                  {console.log(column.render("Header"))}
                   {column.render("Header")}
                   <div>{column.canFilter ? column.render("Filter") : null}</div>
                 </th>
@@ -94,10 +92,7 @@ function Table({ data1, column, numberOfRows }) {
               <tr {...row.getRowProps()}>
                 {row.cells.map((cell) => {
                   return (
-                    <td {...cell.getCellProps()}>
-                      {console.log(cell.render("Cell"))}
-                      {cell.render("Cell")}
-                    </td>
+                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                   );
                 })}
               </tr>
