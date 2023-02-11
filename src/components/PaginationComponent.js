@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import Pagination from "react-bootstrap/Pagination";
 
 function PaginationComponent({
-  pageOptions,
   pagesCount,
   currentPage,
   setCurrentPage,
@@ -15,7 +14,7 @@ function PaginationComponent({
 
   const changePage = (number) => {
     if (currentPage === number + 1) return;
-    console.log(currentPage, number + 1);
+
     setCurrentPage(number);
   };
 

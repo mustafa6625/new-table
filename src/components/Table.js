@@ -12,7 +12,7 @@ import { CSVLink } from "react-csv";
 
 import PaginationComponent from "./PaginationComponent";
 
-function Table({ data1, excel2, column, numberOfRows }) {
+function Table({ data1, excelData, column, numberOfRows }) {
   const columns = useMemo(() => column, []);
   const data = useMemo(() => data1, []);
 
@@ -61,7 +61,7 @@ function Table({ data1, excel2, column, numberOfRows }) {
         style={{ marginRight: "10px" }}
       >
         <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-        <CSVLink data={excel2}>
+        <CSVLink data={excelData}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="48"
@@ -108,7 +108,7 @@ function Table({ data1, excel2, column, numberOfRows }) {
           </strong>{" "}
         </p>
         <PaginationComponent
-          pageOptions={pageOptions}
+          // pageOptions={pageOptions}
           pagesCount={pageCount}
           currentPage={pageIndex + 1}
           setCurrentPage={gotoPage}

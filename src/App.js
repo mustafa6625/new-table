@@ -10,6 +10,7 @@ function App() {
   let excelData = data.map(({ account, event, entered_by, event_date }) => {
     return { account, event, entered_by, event_date };
   });
+  console.log(excelData);
   let excelData2 = data2.map(({ first_name, last_name, gender }) => {
     return { first_name, last_name, gender };
   });
