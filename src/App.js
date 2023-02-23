@@ -10,9 +10,9 @@ function App() {
   let excelData = data.map(({ account, event, entered_by, event_date }) => {
     return { account, event, entered_by, event_date };
   });
-  console.log(excelData);
-  let excelData2 = data2.map(({ first_name, last_name, gender }) => {
-    return { first_name, last_name, gender };
+
+  let excelData2 = data2.map(({ first_name, gender }) => {
+    return { first_name, gender };
   });
 
   // Set disableFilter to true if a particular column does not require a Filter input
@@ -44,18 +44,25 @@ function App() {
 
   return (
     <>
-      <Table
-        data1={data}
-        excelData={excelData}
-        column={COLUMNS}
-        numberOfRows={5}
-      />
-      <Table
-        data1={data2}
-        excelData={excelData2}
-        column={COLUMN2}
-        numberOfRows={3}
-      />
+      <div className="d-flex" style={{ backgroundColor: "#6a6a6a2c" }}>
+        <div className="m-4">
+          <Table
+            header="Portfolio at glance"
+            data1={data}
+            excelData={excelData}
+            column={COLUMNS}
+            numberOfRows={5}
+          />
+        </div>
+        {/* <div className="m-2">
+          <Table
+            data1={data2}
+            excelData={excelData2}
+            column={COLUMN2}
+            numberOfRows={3}
+          />
+        </div> */}
+      </div>
     </>
   );
 }

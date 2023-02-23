@@ -13,8 +13,9 @@ code {
 }
 
 .pagination {
+  display: flex;
+  gap: 12px;
   justify-content: center;
-  margin-bottom: 2rem;
 }
 
 .muted {
@@ -23,12 +24,15 @@ code {
 
 .page-item a,
 .page-link:hover {
-  color: #04aa6d;
+  border-radius: 100%;
+  color: #8992a9;
 }
 
 .page-item.active .page-link {
-  border-color: #04aa6d;
-  background-color: #04aa6d;
+  border-color: #ff8057;
+  border-radius: 100%;
+
+  background-color: #ff8057;
 }
 
 .page-link:focus {

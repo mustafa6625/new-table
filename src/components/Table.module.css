@@ -1,20 +1,20 @@
 .table {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Inter";
   border-collapse: collapse;
   width: 100%;
-  margin: auto;
-  border-radius: 9px;
+  font-size: 14px;
+  line-height: 17px;
   overflow: hidden;
 }
 
 .table td,
 .table th {
-  border: 1px solid #ddd;
-  padding: 16px;
-}
-
-.table tr:nth-child(even) {
-  background-color: #f2f2f2;
+  /* border: 1px solid #ddd; */
+  border-bottom: 1px solid #efefef;
+  padding: 20px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
 }
 
 .table tr:hover {
@@ -22,17 +22,58 @@
 }
 
 .table th {
-  /* padding-bottom: 12px; */
-  text-align: center;
-  background-color: #04aa6d;
-  color: white;
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16.94px;
+  color: #7f8da2;
+  height: 40px;
 }
 
-/* .active {
-  background-color: #04aa6d !important;
-  color: #fff !important;
+.table thead {
+  background: #fbfbfb;
+  border-bottom: 1px solid #efefef;
 }
 
-.muted {
-  pointer-events: none;
-} */
+.marginAuto {
+  margin: auto;
+}
+
+.paddingAndHeight {
+  padding: 18px 22px;
+  height: 54px;
+}
+
+.h2 {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  color: #393f46;
+}
+
+.icon {
+  width: 16.93px;
+  height: 16.93px;
+  color: #95a0b1;
+}
+
+.tableBackground {
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.tableBottom {
+  padding: 20px;
+  height: 66px;
+}
+
+.buttonViewAll {
+  display: inline-block;
+  color: #438ffe;
+  border: none;
+  background-color: #fff;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+  margin-bottom: 6px;
+}
